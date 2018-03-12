@@ -4,7 +4,7 @@ SHIMR is basically a forward feature selection with simultaneous sample reductio
 Sample reduction is achieved by incorporating the notion of "Classification with embedded reject option" which essentially minimizes the classification uncertainty, specifically in case of noisy data. One potential application of this method could be in clinical diagnosis (or prognosis). 
 
 
-<img src="Images/Interaction_Plot_d_0.5/figure_RID_91550.pdf" width="500">
+<img src="Images/figure_RID_91550.pdf" width="500">
 
 
 
@@ -19,11 +19,11 @@ homepage:   http://research.nii.ac.jp/~uno/code/lcm.html
 
 Apart from that the current implementation is in python which is tested with the following python setup <br/>
 
-1) Python 2.7.13 <br/>
-2) scikit-learn==0.18.1 <br/>
-3) scipy==0.19.0 <br/>
-4) numpy==1.12.1 <br/>
-5) pandas==0.19.2 <br/>
+1) Python 3.4.5 <br/>
+2) scikit-learn==0.19.1 <br/>
+3) scipy==1.0.0 <br/>
+4) numpy==1.14.1 <br/>
+5) pandas==0.22.0 <br/>
 5) matplotlib==2.0.0 <br/>
 
 ### Download <br/>
@@ -46,7 +46,7 @@ Download "anaconda" from https://www.continuum.io/downloads <br/>
 &emsp; &ensp; source anaconda/bin/activate anaconda/
 
 3) Create a new environment and activate it <br/>
-&emsp; &ensp; conda create -n r_boost python=2.7.13 <br/>
+&emsp; &ensp; conda create -n r_boost python=3.4.5 <br/>
 &emsp; &ensp; source activate r_boost <br/>
 &emsp; &ensp; pip install -r requirements.txt <br/>
 
@@ -63,9 +63,9 @@ chmod +x cplex_studioXXX.linux-x86.bin. <br/>
 
 3) Installation path: <br/>
 /home/user/ibm/ILOG/CPLEX_StudioXXX <br/>
-4) cd ‘/home/username/ibm2/ILOG/CPLEX_StudioXXX/cplex/python/2.7/x86-64_linux’ ==> Linux <br/>
+4) cd ‘/home/username/ibm2/ILOG/CPLEX_StudioXXX/cplex/python/3.4/x86-64_linux’ ==> Linux <br/>
 
-or cd  /Users/username/Applications/IBM/ILOG/CPLEX_StudioXXX/cplex/python/2.7/x86-64_osx/ ==> Mac <br/>
+or cd  /Users/username/Applications/IBM/ILOG/CPLEX_StudioXXX/cplex/python/3.4/x86-64_osx/ ==> Mac <br/>
 
 5) python setup.py install <br/>
 

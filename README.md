@@ -5,7 +5,7 @@ Sample reduction is achieved by incorporating the notion of "Classification with
 
 Below is a visualization of SHIMR when applied on "Breast Cancer Wisconsin (Diagnostic) Data Set" from UCI Machine Learning Repository (https://archive.ics.uci.edu/ml/datasets/Breast+Cancer+Wisconsin+(Diagnostic)).
 
-<img src="Images/figure_RID_91550.pdf" width="500">
+<img src="Images/figure_RID_91550.png" width="800">
 
 
 

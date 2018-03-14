@@ -41,16 +41,22 @@ A step by step instructions that will guide you to get a working copy of "SHIMR"
 Download "anaconda" from https://www.continuum.io/downloads <br/>
 
 1) Install Anaconda <br/>
-&emsp; &ensp;  bash Anaconda-latest-Linux-x86_64.sh (Linux)  or <br/>
-&emsp; &ensp;  bash Anaconda-latest-MacOSX-x86_64.sh (Mac) <br/>
+```
+$ bash Anaconda-latest-Linux-x86_64.sh       (Linux)  or
+$ bash Anaconda-latest-MacOSX-x86_64.sh      (Mac)
+```
 
 2) Activate anaconda environment  <br/>
-&emsp; &ensp; source anaconda/bin/activate anaconda/
+```
+source anaconda/bin/activate anaconda/
+```
 
 3) Create a new environment and activate it <br/>
-&emsp; &ensp; conda create -n r_boost python=3.4.5 <br/>
-&emsp; &ensp; source activate r_boost <br/>
-&emsp; &ensp; pip install -r requirements.txt <br/>
+```
+$ conda create -n r_boost python=3.4.5
+$ source activate r_boost
+$ pip install -r requirements.txt
+```
 
 
 <b> B.  Install "IBM ILOG CPLEX Optimization Studio" </b>
@@ -58,24 +64,37 @@ Download "anaconda" from https://www.continuum.io/downloads <br/>
 1) Download "cplex_studioXXX.linux-x86.bin" (Linux) or "cplex_studioXXX.osx.bin" (Mac) file <br/>
 
 Make sure the .bin file is executable. If necessary, change its permission using the chmod command from the directory where the .bin is located: <br/>
-chmod +x cplex_studioXXX.linux-x86.bin. <br/>
+
+```
+$ chmod +x cplex_studioXXX.linux-x86.bin
+```
 
 2) Enter the following command to start the installation process: <br/>
-./cplex_studioXXX.linux-x86.bin <br/>
+```
+$ ./cplex_studioXXX.linux-x86.bin
+```
 
-3) Installation path: <br/>
-/home/user/ibm/ILOG/CPLEX_StudioXXX <br/>
-4) cd ‘/home/username/ibm2/ILOG/CPLEX_StudioXXX/cplex/python/3.4/x86-64_linux’ ==> Linux <br/>
+3) Provide the follwing installation path: <br/>
+```
+$ /home/user/ibm/ILOG/CPLEX_StudioXXX 
+```
+4) Change directory to CPLEX installation path <br/>
+```
+$ cd /home/username/ibm2/ILOG/CPLEX_StudioXXX/cplex/python/3.4/x86-64_linux                (Linux)  or
+$ cd /Users/username/Applications/IBM/ILOG/CPLEX_StudioXXX/cplex/python/3.4/x86-64_osx/     (Mac)
+```
 
-or cd  /Users/username/Applications/IBM/ILOG/CPLEX_StudioXXX/cplex/python/3.4/x86-64_osx/ ==> Mac <br/>
-
-5) python setup.py install <br/>
+5) Install python version of CPLEX
+```
+$ python setup.py install
+```
 
 <b> C.  Install "LCM ver. 5.3" </b>
-
-1) Unzip the 'lcm53.zip' directory <br/>
-2) cd lcm53 <br/>
-3) make. <br/>
+```
+1) Unzip the 'lcm53.zip' directory
+2) cd lcm53
+3) make
+```
 
 ## Running the tests
 To test SHIMR we included "Breast Cancer Wisconsin (Diagnostic) Data Set" 

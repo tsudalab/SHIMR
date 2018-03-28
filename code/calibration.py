@@ -50,7 +50,7 @@ def get_Sigmoid_Calibrated_Probability(X,Y):
 def get_Isotonic_Calibrated_Probability(X,Y):
 	X=X.ravel()
 	ir = IsotonicRegression(out_of_bounds = 'clip')
-	Y=label_binarize(Y, classes=[-1,1]).ravel()
+	Y=label_binarize(Y.tolist(), classes=[-1,1]).ravel()
 	# prob_pos = ir.fit_transform(X, Y)
 	# return prob_pos
 	prob_pos = ir.fit(X, Y)

@@ -155,11 +155,11 @@ class Reject_Boost_Trainer(object):
                     break
                 
 
-        ### File write updated gain ###
-        gain_updated_all_dir=self.data_path + 'gain_updated_all/'
-        if not os.path.exists(gain_updated_all_dir):
-            os.makedirs(gain_updated_all_dir)            
-        np.save(gain_updated_all_dir + 'gain_updated_all_d_'+ str(d) + '.npy', gain_updated_all)
+        # ### File write updated gain ###
+        # gain_updated_all_dir=self.data_path + 'gain_updated_all/'
+        # if not os.path.exists(gain_updated_all_dir):
+        #     os.makedirs(gain_updated_all_dir)            
+        # np.save(gain_updated_all_dir + 'gain_updated_all_d_'+ str(d) + '.npy', gain_updated_all)
         
         return self    
 

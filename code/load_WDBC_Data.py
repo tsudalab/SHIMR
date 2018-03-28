@@ -71,6 +71,9 @@ def load_data(data_path):
 	path_dict=data_path+'wdbc_dict.npy'
 	create_Feature_Dictionary(path_dict)
 	Feature_dict=np.load(path_dict).item()	
+
+	# Define Class labels dictionary
+	class_labels_dict={-1:'Benign', +1:'Malignant', 0:'Rejected'}
 	
 	### Read the train data
 	wdbc_train_df=pd.read_csv(input_data_path+'wdbc_train.csv', sep=',')
@@ -79,19 +82,6 @@ def load_data(data_path):
 	### Read the test data
 	wdbc_test_df=pd.read_csv(input_data_path+'wdbc_test.csv', sep=',')
 	wdbc_test=wdbc_test_df.as_matrix()
-
-	
-
-	
-
-	
-	RID_Diag_train=wdbc_train[:,[0,1]]
-	RID_Diag_test=wdbc_test[:,[0,1]]
-
-
-	np.save(data_path+'RID_vs_Diag_train.npy',RID_Diag_train)
-	np.save(data_path+'RID_vs_Diag_test.npy',RID_Diag_test)
-
 	
 	
 	X=wdbc_train[:,2:]
@@ -105,9 +95,17 @@ def load_data(data_path):
 	y=label_binarize(y, classes=['B','M'], neg_label=-1, pos_label=1).ravel()	
 	y_test=label_binarize(y_test, classes=['B', 'M'], neg_label=-1, pos_label=1).ravel()
 
-	
 
-	return [X, y, X_test, y_test, Feature_dict]
+
+
+	data_train=np.hstack((wdbc_train[:,0][:,np.newaxis],y[:,np.newaxis],X))
+	data_test=np.hstack((wdbc_test[:,0][:,np.newaxis],y_test[:,np.newaxis],X_test))	
+	np.save('../Data/data.npy',[data_train, data_test, Feature_dict, class_labels_dict])
+
+
+
+	return [data_train, data_test, Feature_dict, class_labels_dict]
+
 
 # data_path='../Data/'
 # [X, y, X_test, y_test]=load_data(data_path)

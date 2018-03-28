@@ -21,7 +21,7 @@ import matplotlib as mpl
 
 class FS_Plot():
 
-	def __init__(self, rows, cols, in_sets_list, out_sets_list, wt, fs_names, bar_plot_file_path, set_row_map, fs, item_set_RID, n_bins, title, data_path, X_test, indx_set_matched_all, indx_set_matched_X_val, score_range, model_score):
+	def __init__(self, rows, cols, in_sets_list, out_sets_list, wt, fs_names, bar_plot_file_path, set_row_map, fs, item_set_RID, n_bins, title, X_test, indx_set_matched_all, indx_set_matched_X_val, score_range, model_score,feature_range_array,rule_array,pt_disp):
 	        """
 	        Generates figures and axes.
 
@@ -37,7 +37,9 @@ class FS_Plot():
 	        self.indx_set_matched_X_val=indx_set_matched_X_val
 	        self.indx_set_matched_all=indx_set_matched_all
 	        self.X_test=X_test
-	        self.data_path=data_path
+	        
+	        self.feature_range_array=feature_range_array
+	        self.rule_array=rule_array	
 	       
 	        self.fontsize=14
 	        
@@ -117,10 +119,12 @@ class FS_Plot():
 	        
 	        # # # title='Features associated with top 10 rules'
 	        self.fig.suptitle(title, fontsize=self.fontsize)
-	        plt.show()
-	       
-	        # self.fig.savefig(bar_plot_file_path)	        
-	        # plt.close()
+
+	        if(pt_disp):
+	        	plt.show()
+	        else:
+	        	self.fig.savefig(bar_plot_file_path)
+	        	plt.close()
 
 	def _strip_axes(self, ax, keep_spines=None, keep_ticklabels=None):
 	        """
@@ -372,13 +376,6 @@ class FS_Plot():
 	                #                        width=xlims[1], color=background, zorder=0))
 	                ax.add_patch(Rectangle((self.x_values[r]-(self.radius+0.05), self.y_vals[0]), height=self.y_max,
 	                                       width=(self.radius+0.05)*2, color=background, zorder=0))
-
-
-
-
-	        feature_range_array=np.load(self.data_path + 'Feature_range_array.npy')
-	        rule_array=np.load(self.data_path + 'Rule_array.npy')	
-
 	        
 
 
@@ -389,7 +386,7 @@ class FS_Plot():
 	            self._draw_patch_out_sets(ax, col_num, self.y_vals[out_y], radius)
 	            items=self.item_set_RID[col_num]
 	            f_indices=[s for s in in_sets]
-	            self._draw_patch_in_sets(items, f_indices, col_num, self.y_vals[in_y], feature_range_array, rule_array, ax, radius)
+	            self._draw_patch_in_sets(items, f_indices, col_num, self.y_vals[in_y], self.feature_range_array, self.rule_array, ax, radius)
 
 	        # Draw a blue rectangle highlighting the selected features.
 	        blue=np.array([ 0.0,  0.0,  1.0,  1.0])

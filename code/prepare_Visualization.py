@@ -41,20 +41,17 @@ def display_Rules(fs, rule_list):
 
 
 
-def visualize_main(n_bins,d,f_primal,f_bias,f_bias2,filename_rules,Feature_dict,f_feature_set,X_test,f_RID_vs_Diag_test,f_Rules_Actual_with_Diag,data_path,dir_figure,plot_all):
+def visualize_main(n_bins,d,predictor,filename_rules,Feature_dict,data_test,f_Rules_Actual_with_Diag,dir_figure,class_label_dict,f_feature_range_array,f_rule_array,pt_disp,plot_all):
 	
-	### Load the data ###
+	### Load actual rules with diagnosis ###
 	data=pd.read_csv(f_Rules_Actual_with_Diag)
 	rules_actual_per_RID=data.as_matrix()
 
+	### Load feature range array
+	feature_range_array=np.load(f_feature_range_array)
 
-	primal_values=np.load(f_primal)
-
-	bias_value1=np.load(f_bias).tolist()
-	bias_value2=np.load(f_bias2).tolist()
-	bias_value=bias_value1 + bias_value2
-
-	
+	### Load rule array
+	rule_array=np.load(f_rule_array)	
 
 	### Load rules from file
 	rule_list_data=pd.read_csv(filename_rules, header=None)
@@ -62,20 +59,22 @@ def visualize_main(n_bins,d,f_primal,f_bias,f_bias2,filename_rules,Feature_dict,
 	rule_list = rule_list_mat.ravel().tolist()
 
 
-	# Load the feature names	
+	primal_values=predictor.primal_values
+	bias_value1=predictor._bias
+	bias_value2=(-1)*np.sum(predictor.primal_values) ### considering (0-1) model
+	bias_value=bias_value1 + bias_value2
+
+
+
+	# Fetch the feature names	
 	f_names=Feature_dict.keys() # Actual attribute names
 	f_names_list=[]
 	for key in f_names:
 		f_names_list.append(key)	
 
-
-	# Load the selected features (by the model) from file
-	fs_selected_all = []
-	with open(f_feature_set) as inputfile:
-	    for line in inputfile:
-	        current_array=line.strip().split(',')
-	        fs_selected_all.append([numeric_string for numeric_string in current_array])
-
+	
+	fs_selected_all = predictor.feature_set 	# Selected features (by the model)
+	
 
 	indx_not_zero=np.where(primal_values!=0)[0] # Find the non zero weight indices of the selected features
 	fs_selected=np.array(fs_selected_all)[indx_not_zero]	
@@ -95,17 +94,11 @@ def visualize_main(n_bins,d,f_primal,f_bias,f_bias2,filename_rules,Feature_dict,
 	# fs=fs[indx_sorted] # all selected rules
 	# wt=wt[indx_sorted] # all selected rules	
 
-
-	display_Rules(fs, rule_list)
-	print(wt)
-
-
+	if(pt_disp):
+		display_Rules(fs, rule_list)
+		print(wt)
 
 
-	
-
-	# load RID_vs_Diag_test
-	RID_vs_Diag_test=np.load(f_RID_vs_Diag_test)
 
 	score_min=min(rules_actual_per_RID[:,3])
 	score_max=max(rules_actual_per_RID[:,3])
@@ -120,11 +113,10 @@ def visualize_main(n_bins,d,f_primal,f_bias,f_bias2,filename_rules,Feature_dict,
 
 		bar_plot_file_path= dir_figure + 'figure_RID_' + str(RID) + '.pdf'	
 
-		indx_X_test=np.where(RID_vs_Diag_test[:,0]==RID)[0]
-		val_X_test=X_test[indx_X_test]
+		indx_X_test=np.where(data_test[:,0]==RID)[0]
+		val_X_test=data_test[indx_X_test,2:]
 
-		diag_act=rules_actual_per_RID[i, 1]
-		diag_pred=rules_actual_per_RID[i, 2]
+		diag_pred=class_label_dict[rules_actual_per_RID[i, 2]]
 		model_score=rules_actual_per_RID[i, 3]
 
 		fs_RID=[] # holds rule indices of a particular 'RID'
@@ -138,19 +130,17 @@ def visualize_main(n_bins,d,f_primal,f_bias,f_bias2,filename_rules,Feature_dict,
 		indx_set_matched_X_val=[] # Needed to calculate the relative x-position for drawing a blue rectangle around the selected items
 		item_set_RID=[]
 		wt_all=[]
-		# fs_indx=[]	
+	
 		count=0
 		for fs_tmp in fs:	# loop through the "selected features by the model". Each feature contains a set of rules.
 			indx_set=[]	# holds feature index of each rule of a selected itemsets (features) by the model
 			for item in fs_tmp:	
 				item=str(item).strip(' ')		
 				_indx=int(math.floor(int(item)/(n_bins-1)))
-				indx_set.append(_indx)		
-
+				indx_set.append(_indx)
 
 			if(np.intersect1d(indx_set,fs_RID).shape[0]>0): # consider only those "model itemsets" which contains atleast one individual feature.
-				# fs_indx=np.union1d(np.array(fs_indx), np.array(indx_set)).astype(int).tolist()
-
+				
 				if(np.intersect1d(fs_tmp,_is).shape[0]==len(fs_tmp)): # Needed to draw a blue rectangle around the selected items
 					indx_set_matched_all.append(indx_set)
 					indx_set_matched_X_val.append(len(indx_set_all)) # len(indx_set_all) represents the relative x-position in intersection matrix
@@ -178,7 +168,7 @@ def visualize_main(n_bins,d,f_primal,f_bias,f_bias2,filename_rules,Feature_dict,
 		cols=len(wt_all)		 # Number of columns
 		title='Selected rules \n(' + r"$\bf{" + str(diag_pred) + "}$"  + ') \n Model Score =  {0:0.02f}'.format(model_score) + ', bias= {0:0.2f}'.format(bias_value) 
 		
-		fs_plot=FS_Plot(rows, cols, in_sets_list, out_sets_list, np.array(wt_all), fs_names, bar_plot_file_path, set_row_map, fs, item_set_RID, n_bins, title, data_path, val_X_test, indx_set_matched_all, indx_set_matched_X_val, score_range, model_score)
+		fs_plot=FS_Plot(rows,cols,in_sets_list,out_sets_list,np.array(wt_all),fs_names,bar_plot_file_path,set_row_map,fs,item_set_RID,n_bins,title,val_X_test,indx_set_matched_all,indx_set_matched_X_val,score_range,model_score,feature_range_array,rule_array,pt_disp)
 
 		print('RID: ' + str(RID) + ' done ...')
 

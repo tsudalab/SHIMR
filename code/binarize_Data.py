@@ -12,8 +12,6 @@ def binarize(X, X_test, n_bins, Feature_nbins_dict, data_path):
 	for key in Feature_nbins_dict.keys():
 		cols_used.append(key)
 
-	
-	# cols_used=Feature_nbins_dict.keys()	
 
 	### Create 'feature_range_array'  ####
 	col_mins=np.min(X_all,axis=0)[:, np.newaxis]
@@ -83,9 +81,6 @@ def binarize(X, X_test, n_bins, Feature_nbins_dict, data_path):
 		rule_writer.writerow([i])
 	csv_rule_list.close()
 
-
-	np.save(data_path+'X_all_binary_train.npy',X_binary)
-	np.save(data_path+'X_all_binary_test.npy',X_test_binary)
 
 	return [X_binary, X_test_binary]
 

@@ -1,15 +1,9 @@
-#### Load Plasma N and A (baseline) and CSF data.
-
-
 import numpy as np
 import pandas as pd
 from sklearn.preprocessing import label_binarize
 from sklearn import preprocessing
 import csv
 import collections
-
-
-
 
 
 
@@ -85,10 +79,10 @@ def load_data(data_path):
 	
 	
 	X=wdbc_train[:,2:]
-	y=wdbc_train[:,1] ### Diagnosis at baseline	
+	y=wdbc_train[:,1] ### Diagnosis 
 
 	X_test=wdbc_test[:,2:]
-	y_test=wdbc_test[:,1]  ### Diagnosis at baseline
+	y_test=wdbc_test[:,1]  ### Diagnosis 
 		
 
 	
@@ -106,11 +100,6 @@ def load_data(data_path):
 
 	return [data_train, data_test, Feature_dict, class_labels_dict]
 
-
-# data_path='../Data/'
-# [X, y, X_test, y_test]=load_data(data_path)
-
-# print 'here...'
 
 
 

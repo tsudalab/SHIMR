@@ -37,5 +37,5 @@ def get_Classification_Results(label_pred_all,y):
 					pos_misclassified+=1
 				else:
 					neg_misclassified+=1
-	# print indx_misclassified
+	
 	return [correctly_classified, misclassified, rejected, rejected_pos, rejected_neg, pos_correctly_classified, neg_correctly_classified, pos_misclassified, neg_misclassified ]

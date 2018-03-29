@@ -1,14 +1,12 @@
-#### This is for only upto 3rd level of tree search in LCM used for multivariate analysis of iBoost with L1 penalty, size_L=1, size_U=3"
-
-
 from __future__ import division
 import numpy as np
-from cplex_opt import *
 import subprocess
 import os
 import pandas as pd
 import time
 from decimal import *
+import cplex
+from cplex.exceptions import CplexSolverError
 
 
 
@@ -20,6 +18,23 @@ class Reject_Boost_Trainer(object):
         self.data_path=data_path
         self.size_L=1
         self.size_U=size_U
+
+        
+    def _lp_Solver(self,filename):
+        c = cplex.Cplex(filename)
+        alg = c.parameters.lpmethod.values
+        c.parameters.lpmethod.set(alg.primal)
+        try:        
+            c.set_log_stream(None)
+            c.set_error_stream(None)
+            c.set_warning_stream(None)
+            c.set_results_stream(None)
+            c.solve()
+        except CplexSolverError:
+            print("Exception raised during solve")
+            return
+
+        return c
 
         
 
@@ -225,7 +240,7 @@ class Reject_Boost_Trainer(object):
         filepath_primal=self.data_path+filename_primal
         Opt.generate_opt_fun(filepath_primal, X, C_POS, C_NEG)  ### Generate input file for 'cplex' solver
        
-        c=lpex2(filepath_primal,"p")
+        c=self._lp_Solver(filepath_primal)
         
         A=[]
         B=[]
@@ -241,15 +256,14 @@ class Reject_Boost_Trainer(object):
         self._bias=b
         lagrange_multipliers=np.array(A) - np.array(B)
         self.primal_values=np.array(lagrange_multipliers)                
-        
 
-                    
+                        
 
     def _solve_LP_Dual(self, Opt, X, C_POS, C_NEG):        
         N=X.shape[0]         
-        Opt.generate_opt_fun(self.filepath_dual, X, C_POS, C_NEG)  ### Generate input file for 'cplex' solver       
-        
-        c=lpex2(self.filepath_dual,"p")
+        Opt.generate_opt_fun(self.filepath_dual, X, C_POS, C_NEG)  ### Generate input file for 'cplex' solver         
+       
+        c=self._lp_Solver(self.filepath_dual)
        
         sols = np.array(c.solution.get_values())
         P=sols[:N]

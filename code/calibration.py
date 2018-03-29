@@ -62,7 +62,7 @@ def do_Grid_Search(X,Y):
 	file_name_GS='LR_GS.txt'
 	grid_search_LR(X.astype(float), Y, file_name_GS, path_param)
 
-	## Train SVM
+	
 	C_best, score_best=np.loadtxt(path_param+'Best_Params_Scores_'+ file_name_GS)
 	print("The best parameters are C= %f, with a score (AUC) of %0.2f"% (C_best, score_best))
 	

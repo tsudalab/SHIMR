@@ -71,7 +71,7 @@ def plot_DB(predictor, X, y, n_bins, label_pred_all, ir, title, legend_all, labe
    
     plt.xlabel(label_all[0])
     plt.ylabel(label_all[1])
-    # plt.title(title)
+    
 
 
     reject_indx=np.where(np.array(label_pred_all)==0)[0]

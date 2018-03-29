@@ -38,9 +38,6 @@ def display_Rules(fs, rule_list):
 
 
 
-
-
-
 def visualize_main(n_bins,d,predictor,filename_rules,Feature_dict,data_test,f_Rules_Actual_with_Diag,dir_figure,class_label_dict,f_feature_range_array,f_rule_array,pt_disp,plot_all):
 	
 	### Load actual rules with diagnosis ###
@@ -106,10 +103,7 @@ def visualize_main(n_bins,d,predictor,filename_rules,Feature_dict,data_test,f_Ru
 
 
 	for i in range(rules_actual_per_RID.shape[0]):
-		RID=rules_actual_per_RID[i,0]
-
-		# RID=1169
-		# i=np.where(rules_actual_per_RID[:,0]==RID)[0][0]
+		RID=rules_actual_per_RID[i,0]		
 
 		bar_plot_file_path= dir_figure + 'figure_RID_' + str(RID) + '.pdf'	
 

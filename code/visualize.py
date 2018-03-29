@@ -1,5 +1,3 @@
-# import matplotlib
-# matplotlib.use('TkAgg')
 from __future__ import division
 import pandas as pd
 import numpy as np
@@ -29,9 +27,6 @@ class FS_Plot():
 
 	        :param cols: The number of columns of the intersection matrix
 
-	        :param additional_plots: list of dictionaries as specified in plot()
-
-	        :param query: list of tuples as specified in plot()
 	        """
 
 	        self.indx_set_matched_X_val=indx_set_matched_X_val
@@ -160,9 +155,7 @@ class FS_Plot():
 
 	def _prepare_figure(self):
 	        """
-	        Prepares the figure, axes (and their grid) taking into account the additional plots.
-
-	        :param additional_plots: list of dictionaries as specified in plot()
+	        Prepares the figure, axes (and their grid) taking into account the additional plots.	        
 	        :return: references to the newly created figure and axes
 	        """
 

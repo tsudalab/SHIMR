@@ -7,8 +7,7 @@ import collections
 
 
 ### Given the binary data, this script generates itemset file. This will be used as input to "lcm" 
-def generate_Itemset(X, filename):
-    # filename="ADNI.txt"
+def generate_Itemset(X, filename):    
     if os.path.exists(filename):
         os.remove(filename)
     file_fs=open(filename, "a+")  
@@ -54,7 +53,6 @@ def write_Actual_Rules_with_Diag_per_RID(f_Actual_Rules_Per_RID, X, data_test, f
 	header_string=['RID', 'diag_act', 'diag_pred', 'score', 'probability', 'itemsets',  'rules']
 	file_wr.writerow(header_string) # Write the file header
 
-	# Dict_RID_FS=collections.OrderedDict() # Dictionary to contain all the rules associated with each 'RID'
 	for i in range(N):
 		tmp=data[i][pd.notnull(data[i])].astype(np.int32)		
 		diag_act=Diag[i]

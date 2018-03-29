@@ -28,14 +28,17 @@ def initialize():
 	C_NEG=1
 	size_U=3
 	apply_rejection=False
-	visualize=False	
+	visualize=True	
 	pt_disp=False
 	plot_all=False
 
 
 	parser=argparse.ArgumentParser(description='Usage of SHIMR')
-	parser.add_argument('f_data', help='File path of input data to SHIMR. File format should be ".npy". \
-		The file should contain data in the format of "[data_train, data_test, Feature_dict, class_labels_dict]"')
+	parser.add_argument('f_data', help='File path of input data to SHIMR. File format should be ".npy". The file should \
+		contain data in the format of "[data_train, data_test, Feature_dict, class_labels_dict]". Feature_dict	is an \
+		ordered dictionary (collections.OrderedDict()) to provide a short name of feature (Key) if it has long name (Value). \
+		A typical example can be wdbc_dict["Rad_M"]= "Radius Mean". class_labels_dict is a class labels dictionary. A typical \
+		example can be "class_labels_dict={-1:"Benign", +1:"Malignant", 0:"Rejected"}" .')
 	parser.add_argument('-d', help='Set rejection cost', type=float)
 	parser.add_argument('-n_bins', help='Set number of bins', type=int)
 	parser.add_argument('-c_pos', help='Set regularization parameter value for positive class', type=float)

@@ -1,4 +1,4 @@
-# SHIMR (Sparse High-order Interaction Model with Rejection option)
+### SHIMR (Sparse High-order Interaction Model with Rejection option)
 SHIMR is basically a forward feature selection with simultaneous sample reduction method to iteratively search for higher order feature interactions from the power set of complex features by maximizing the classification gain.
 
 Sample reduction is achieved by incorporating the notion of "Classification with embedded rejection option" which essentially minimizes the classification uncertainty, specifically in case of noisy data. One potential application of this method could be in clinical diagnosis (or prognosis). 

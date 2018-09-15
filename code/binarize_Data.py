@@ -1,4 +1,4 @@
-### Binarize data using non-overlapping bins ###
+######## Binarize data using non-overlapping bins ######
 import numpy as np
 import collections
 import csv

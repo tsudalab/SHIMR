@@ -111,7 +111,7 @@ def run(f_data,d,n_bins,C_POS,C_NEG,size_U,apply_rejection,visualize,pt_disp,plo
 	while(d>0):		
 
 		# Instantiate 'reject_boost(SHIMR)'
-		rb=reject_boost(d, n_bins, size_U, C_POS, C_NEG, data_path, fname)		
+		rb=reject_boost(d, size_U, C_POS, C_NEG, data_path, fname)		
 
 		# Fit SHIMR to train data
 		rb.fit(X_train_binarized,data_train[:,1])

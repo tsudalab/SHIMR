@@ -20,9 +20,9 @@ from classification_Results import *
 
 
 class reject_boost(object):
-	def __init__(self, d, n_bins, size_U, C_POS, C_NEG, data_path, fname):		
+	def __init__(self, d, size_U, C_POS, C_NEG, data_path, fname):		
 		self.d=d
-		self.n_bins=n_bins	
+		# self.n_bins=n_bins	
 		self.size_U=size_U
 		self.C_POS=C_POS
 		self.C_NEG=C_NEG
@@ -105,7 +105,7 @@ class reject_boost(object):
 				mode='Testing'
 			print("======= " + mode +" Results =======")
 			print('d=' + str(self.d))
-			# print 'No of rules selected = ' +str(rule_size)
+			print('No of rules selected = ' +str(rule_size))
 			print('correctly_classified:' + str(correctly_classified) + ', misclassified: '+ str(misclassified) + ', rejected: '+str(rejected))
 			print('TP:'+str(TP)+', TN: '+str(TN)+', FP:'+str(FP)+', FN: '+str(FN)+', SN/RC:'+str(SN)+', PR:'+str(PR)+', SP: '+str(SP))
 
